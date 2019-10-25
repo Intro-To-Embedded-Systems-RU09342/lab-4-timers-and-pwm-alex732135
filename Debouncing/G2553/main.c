@@ -19,16 +19,16 @@ int main(void) {
     __bis_SR_register(LPM0 + GIE);      //enable low power mode and interrupts
 
 }
-#pragma vector=TIMER0_A0_VECTOR         //interrupt protocol and memory allocation
-__interrupt void Interrupt_1(void)      //interrupt name
+#pragma vector=TIMER0_A0_VECTOR         
+__interrupt void Timerinter(void)     
 {
     TA0CTL &= ~TAIFG;                   //clear interrupt flag
     TA0CTL |= MC_0;                     //stop timer
     if(!(P1IN & BIT3))                  //if button is pressed
         P1OUT ^= BIT0;                  //toggle LED
 }
-#pragma vector = PORT1_VECTOR           //interrupt protocol and memory allocation
-__interrupt void Interrupt_2(void)      //interrupt name
+#pragma vector = PORT1_VECTOR          
+__interrupt void  Buttonpressed(void)      
 {
     P1IFG &= ~BIT3;                     //clear interrupt flag
     TA0R = 0;                           //reset timer
